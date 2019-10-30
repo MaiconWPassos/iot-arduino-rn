@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "testapp",
-    "slug": "testapp",
+    "name": "Trabalho de Microeletrônica",
+    "slug": "trabalhomicroeletronica",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
@@ -28,6 +28,9 @@
     },
     "androidStatusBar": {
       "backgroundColor": "#FFF"
+    },
+    "android": {
+      "package": "com.mwpsfoftware.iotrn"
     }
   }
 }
