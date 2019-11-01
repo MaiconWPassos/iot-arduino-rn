@@ -36,3 +36,18 @@ export const LabelNomes = styled.Text`
   color: #ccc;
   font-size: 16px;
 `;
+
+export const ButtonModal = styled.TouchableOpacity`
+  padding: 8px 8px;
+  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100;
+`;
