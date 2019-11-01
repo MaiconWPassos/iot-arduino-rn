@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import { Modal,TouchableHighlight,View, Text } from 'react-native'
 import Icon from "react-native-vector-icons/AntDesign";
+import ModalConfig from './components/ModalConfig';
 import { Container, Label, Button, LabelNomes, BoxNomes, ButtonModal} from "./styles";
 
 
 export default function Index() {
   const [luz, setLuz] = useState(false);
   const [modal, setModal] = useState(false);
+
+
 
 
   async function handleLuz(params) {
@@ -57,24 +59,8 @@ export default function Index() {
         onPress={() => setModal(true)}>
         <Icon name="setting" size={20} color={luz ? "#ffdd00" : "#ccc"} />
       </ButtonModal>
-
-      <Modal
-          animationType="slide"
-          transparent={false}
-          visible={modal}>
-          <View style={{marginTop: 22}}>
-            <View>
-              <Text>Hello World!</Text>
-
-              <TouchableHighlight
-                onPress={() => {
-                  setModal(false)
-                }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-        </Modal>
+       <ModalConfig visible={modal}/>
+     
     </Container>
   );
 }
