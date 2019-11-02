@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 import Icon from "react-native-vector-icons/AntDesign";
 import ModalConfig from './components/ModalConfig';
 import { Container, Label, Button, LabelNomes, BoxNomes, ButtonModal} from "./styles";
@@ -8,7 +9,32 @@ import { Container, Label, Button, LabelNomes, BoxNomes, ButtonModal} from "./st
 export default function Index() {
   const [luz, setLuz] = useState(false);
   const [modal, setModal] = useState(false);
+  const [url, setURL] = useState('');
+  
+  async function getIp(){
+    let ip = await AsyncStorage.getItem('@ipconfig')
+    return ip;
+  } 
+  useEffect(() => {
+      async function verifica(){
+        let ip = await getIp();
+        
+        if(ip){
+          setURL(ip);
+        }else{
+          setModal(true);
+        }
 
+        let { status, data} = await axios.get('http://' + ip + '/status');
+        if(data.status){
+          setLuz(true);
+        }else{
+          setLuz(false)
+        }
+      }
+
+      verifica();
+  })
 
 
 
@@ -59,7 +85,7 @@ export default function Index() {
         onPress={() => setModal(true)}>
         <Icon name="setting" size={20} color={luz ? "#ffdd00" : "#ccc"} />
       </ButtonModal>
-       <ModalConfig visible={modal}/>
+       <ModalConfig visible={modal} onClose={() => setModal(false)}/>
      
     </Container>
   );

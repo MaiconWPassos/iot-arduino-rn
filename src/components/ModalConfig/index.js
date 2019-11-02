@@ -1,21 +1,43 @@
 import React, { useState } from "react";
-import { Modal, Content, Body, Label } from "./styles";
+import { AsyncStorage } from 'react-native';
+import { Modal, Content, Body, Label, Button, Input } from "./styles";
 
 export default function ModalConfig(props) {
-  const [modal, setModal] = useState(props.visible);
+  let modal = props.visible;
+  const [ip, setIp] = useState('');
+
+  async function getIp(){
+    let ip = await AsyncStorage.get('@ipconfig', val);
+    setIp(ip)
+  }
+
+  // getIp();
+
+  async function handleIPChange(){
+    await AsyncStorage.setItem('@ipconfig', ip);
+    props.onClose();
+  }
   return (
     <Modal animationType="slide" transparent={false} visible={modal}>
       <Content>
         <Body>
           <Label>IP servidor:</Label>
-
-          <TouchableHighlight
-            onPress={() => {
-              setModal(false);
+          <Input onChangeText={val => setIp(val)} value={ip}/>
+          <Button
+            style={{
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5
             }}
+            onPress={handleIPChange}
           >
-            <Text>Salvar</Text>
-          </TouchableHighlight>
+            <Label>Salvar</Label>
+          </Button>
         </Body>
       </Content>
     </Modal>
